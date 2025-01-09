@@ -61,6 +61,7 @@ class AssessmentController extends ResourceController
         return $this->respond([
             'status' => 'success',
             'message' => 'Login successful, welcome ' . $user['username'],
+            'user_id' => $user['id'], // Tambahkan info user_id di sini
             'scale_info' => '0 = Tidak pernah, 5 = Selalu',
             'questions' => $this->getQuestions(),
         ]);
