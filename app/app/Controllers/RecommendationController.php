@@ -67,7 +67,7 @@ class RecommendationController extends ResourceController
         }
     
         // Untuk kategori lain, rekomendasikan psikolog berdasarkan spesialisasi
-        $psychologists = $this->callApi('GET', 'https://asa99.my.id/appointments/available', ['specialist' => $specialist]);
+        $psychologists = $this->callApi('GET', 'https://asa99.my.id/appointments/available?user_id=21', ['specialist' => $specialist]);
         $articles = $this->callApi('GET', 'https://asa99.my.id/articles');
     
         return view('recommendation', [
