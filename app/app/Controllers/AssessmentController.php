@@ -111,6 +111,40 @@ class AssessmentController extends ResourceController
         ]);
     }
     
+    public function resultJSON()
+    {
+        $assessmentModel = new AssessmentModel();
+        
+        // Get user_id dari query string
+        $userId = $this->request->getGet('user_id');
+        
+        // Validasi user_id
+        if (!$userId || !is_numeric($userId)) {
+            return $this->failValidationError('Invalid or missing user_id');
+        }
+        
+        // Ambil hasil assessment terbaru untuk user
+        $result = $assessmentModel
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+        
+        // Cek apakah hasil ditemukan
+        if (!$result) {
+            return $this->failNotFound('No assessment result found for the given user ID.');
+        }
+        
+        // Hitung kategori dari skor
+        $category = $this->getCategory($result['score']);
+        
+        // Kembalikan data dalam format JSON
+        return $this->respond([
+            'score' => $result['score'],
+            'category' => $category
+        ]);
+    }
+
+    
 
     // Fungsi untuk mendapatkan daftar pertanyaan
     private function getQuestions()

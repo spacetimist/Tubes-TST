@@ -24,6 +24,7 @@ $routes->group('auth', ['namespace' => 'App\Controllers'], function($routes) {
 $routes->group('assessment', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->match(['get', 'post'], '/', 'AssessmentController::index');
     $routes->put('update', 'AssessmentController::updateResult');
+    $routes->get('resultJSON', 'AssessmentController::resultJSON');
 
 
     // view aja
@@ -34,4 +35,5 @@ $routes->group('assessment', ['namespace' => 'App\Controllers'], function($route
 
 });
 
+$routes->get('recommendations', 'RecommendationController::recommendations');
 
